@@ -129,23 +129,19 @@ func (m *Matriz) Insertar_Elemento(x int, y int, color string) {
 	nodoFila := m.buscarF(y)
 
 	if nodoColumna == nil && nodoFila == nil {
-		fmt.Println("Primer Caso")
 		nodoColumna = m.nuevaColumna(x)
 		nodoFila = m.nuevaFila(y)
 		nuevoNodo = m.insertarColumna(nuevoNodo, nodoFila)
 		nuevoNodo = m.insertarFila(nuevoNodo, nodoColumna)
 	} else if nodoColumna != nil && nodoFila == nil {
-		fmt.Println("Segundo Caso")
 		nodoFila = m.nuevaFila(y)
 		nuevoNodo = m.insertarColumna(nuevoNodo, nodoFila)
 		nuevoNodo = m.insertarFila(nuevoNodo, nodoColumna)
 	} else if nodoColumna == nil && nodoFila != nil {
-		fmt.Println("Tercer Caso")
 		nodoColumna = m.nuevaColumna(x)
 		nuevoNodo = m.insertarColumna(nuevoNodo, nodoFila)
 		nuevoNodo = m.insertarFila(nuevoNodo, nodoColumna)
 	} else if nodoColumna != nil && nodoFila != nil {
-		fmt.Println("Cuarto Caso")
 		nuevoNodo = m.insertarColumna(nuevoNodo, nodoFila)
 		nuevoNodo = m.insertarFila(nuevoNodo, nodoColumna)
 	} else {

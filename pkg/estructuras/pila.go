@@ -52,3 +52,16 @@ func (p *Pila) Reporte() {
 	escribirArchivo(texto, nombre_archivo)
 	ejecutar(nombre_imagen, nombre_archivo)
 }
+
+func (p *Pila) JSON() {
+	nombre_archivo := "./pila.json"
+	texto := "{\"pedidos\":["
+	aux := p.Primero
+	for i := 0; i < p.Longitud; i++ {
+		texto = texto + "{\"id_cliente\": " + "\"" + aux.idCliente + "\"" + "," + "\"imagen\": " + "\"" + aux.nombreImagen + "\"" + "}"
+		aux = aux.Siguiente
+	}
+	texto += "]}"
+	crearArchivo(nombre_archivo)
+	escribirArchivo(texto, nombre_archivo)
+}

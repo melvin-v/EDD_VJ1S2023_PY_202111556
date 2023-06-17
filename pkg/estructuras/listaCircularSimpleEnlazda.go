@@ -20,7 +20,7 @@ type ListaCircularSimpleEnlazada struct {
 	Longitud int
 }
 
-func (l *ListaCircularSimpleEnlazada) insertar(id string, Nombre string) {
+func (l *ListaCircularSimpleEnlazada) Insertar(Nombre string, id string) {
 	node := &clientes{id: id, Nombre: Nombre}
 	if l.Raiz == nil {
 		l.Raiz = node
@@ -64,7 +64,7 @@ func (l *ListaCircularSimpleEnlazada) LeerCSV(ruta string) {
 			encabezado = false
 			continue
 		}
-		l.insertar(linea[0], linea[1])
+		l.Insertar(linea[0], linea[1])
 	}
 }
 
@@ -91,4 +91,17 @@ func (l *ListaCircularSimpleEnlazada) Reporte() {
 	crearArchivo(NombreArchivo)
 	escribirArchivo(texto, NombreArchivo)
 	ejecutar(NombreImagen, NombreArchivo)
+}
+
+func (l *ListaCircularSimpleEnlazada) SiExiste(IdCliente string) bool {
+	flag := false
+	aux := l.Raiz
+	for aux.Siguiente != nil {
+		if aux.id == IdCliente {
+			flag = true
+		}
+		aux = aux.Siguiente
+	}
+
+	return flag
 }

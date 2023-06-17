@@ -3,20 +3,15 @@ package main
 import (
 	"EDD_creative/pkg/estructuras"
 	"fmt"
+	"math/rand"
 	"strconv"
+	"time"
 )
 
 func main() {
-
-	matriz_csv := &estructuras.Matriz{Raiz: &estructuras.NodoMatriz{PosX: -1, PosY: -1, Color: "RAIZ"}}
-	imagen := "mario"
-	archivo := "body.csv"
-	matriz_csv.LeerArchivo("csv/" + imagen + "/" + archivo)
-	matriz_csv.Reporte()
-
 	listaEmpleados := estructuras.ListaSimpleEnlazada{}
-	listaImagenes := estructuras.ListaCircularSimpleEnlazada{}
-	listaUsuarios := estructuras.ListaDobleEnlazada{}
+	listaImagenes := estructuras.ListaDobleEnlazada{}
+	listaUsuarios := estructuras.ListaCircularSimpleEnlazada{}
 	cola := estructuras.Cola{}
 	pila := estructuras.Pila{}
 
@@ -42,7 +37,7 @@ func main() {
 			fmt.Print("Ingrese la contraseña: ")
 			fmt.Scanln(&contraseña)
 
-			if usuario == "1" && contraseña == "1" {
+			if usuario == "ADMIN_202111556" && contraseña == "Admin" {
 				opAdmin := "0"
 				exit2 := true
 				for exit2 {
@@ -95,7 +90,8 @@ func main() {
 							fmt.Println("*   3. Usuarios                              *")
 							fmt.Println("*   4. Cola                                  *")
 							fmt.Println("*   5. Pila                                  *")
-							fmt.Println("*   6. Regresar                              *")
+							fmt.Println("*   6. Matriz                                  *")
+							fmt.Println("*   7. Regresar                              *")
 							fmt.Println("**********************************************")
 							fmt.Scanln(&opReportes)
 							switch opReportes {
@@ -115,6 +111,13 @@ func main() {
 								pila.Reporte()
 
 							case "6":
+								m := ""
+								fmt.Scanln(&m)
+								matriz := &estructuras.Matriz{Raiz: &estructuras.NodoMatriz{PosX: -1, PosY: -1, Color: "RAIZ"}}
+								matriz.LeerInicial("csv/"+m+"/inicial.csv", m)
+								matriz.Reporte()
+
+							case "7":
 								exit3 = false
 							}
 
@@ -143,13 +146,25 @@ func main() {
 						fmt.Println("*                IMAGENES                    *")
 						fmt.Println("**********************************************")
 						aux := listaImagenes.Raiz
+						apoyo := make(map[string]string)
 						for i := 0; i < listaImagenes.Longitud; i++ {
 							number := i + 1
+							apoyo[strconv.Itoa(number)] = aux.Nombre
 							fmt.Println(strconv.Itoa(number) + " " + aux.Nombre)
 							aux = aux.Siguiente
 						}
 						fmt.Print("Ingrese la imagen que quieres: ")
 						fmt.Scanln(&img)
+						fmt.Println(apoyo)
+						_, existe := apoyo[img]
+						if !existe {
+							fmt.Println("Imagen no encontrada")
+						} else {
+							imagen := apoyo[img]
+							matriz := &estructuras.Matriz{Raiz: &estructuras.NodoMatriz{PosX: -1, PosY: -1, Color: "RAIZ"}}
+							matriz.LeerInicial("csv/"+imagen+"/inicial.csv", imagen)
+							matriz.GenerarImagen(imagen)
+						}
 
 					case "2":
 						idCliente := ""
@@ -164,7 +179,22 @@ func main() {
 						fmt.Scanln(&idEmpleado)
 						fmt.Print("Ingrese el nombre de la imagen: ")
 						fmt.Scanln(&nombreImagen)
+						if cola.Primero.Id == "X" {
+							rand.Seed(time.Now().UnixNano())
+							numeroAleatorio := strconv.Itoa(rand.Intn(10)) + strconv.Itoa(rand.Intn(10)) + strconv.Itoa(rand.Intn(10)) + strconv.Itoa(rand.Intn(10))
+							for {
+								numeroAleatorio = strconv.Itoa(rand.Intn(10)) + strconv.Itoa(rand.Intn(10)) + strconv.Itoa(rand.Intn(10)) + strconv.Itoa(rand.Intn(10))
+								if !listaUsuarios.SiExiste(numeroAleatorio) {
+									break
+								}
+							}
+							listaUsuarios.Insertar(cola.Primero.Nombre, numeroAleatorio)
+						}
+						cola.Desencolar()
+
 						pila.Push(idCliente, idEmpleado, nombreImagen)
+						pila.JSON()
+						cola.Desencolar()
 
 					case "3":
 						exit2 = false

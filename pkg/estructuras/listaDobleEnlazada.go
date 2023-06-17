@@ -9,34 +9,34 @@ import (
 )
 
 type imagenes struct {
-	nombre    string
+	Nombre    string
 	cantidad  int
 	anterior  *imagenes
-	siguiente *imagenes
+	Siguiente *imagenes
 }
 
 type ListaDobleEnlazada struct {
-	raiz     *imagenes
+	Raiz     *imagenes
 	ultimo   *imagenes
-	longitud int
+	Longitud int
 }
 
-func (l *ListaDobleEnlazada) insertar(nombre string, cantidad int) {
-	node := &imagenes{nombre: nombre, cantidad: cantidad, anterior: nil, siguiente: nil}
-	if l.raiz == nil {
-		l.raiz = node
+func (l *ListaDobleEnlazada) insertar(Nombre string, cantidad int) {
+	node := &imagenes{Nombre: Nombre, cantidad: cantidad, anterior: nil, Siguiente: nil}
+	if l.Raiz == nil {
+		l.Raiz = node
 		l.ultimo = node
-		l.longitud++
-	} else if l.raiz.siguiente == nil {
-		l.raiz.siguiente = node
+		l.Longitud++
+	} else if l.Raiz.Siguiente == nil {
+		l.Raiz.Siguiente = node
 		l.ultimo = node
-		l.ultimo.anterior = l.raiz
-		l.longitud++
+		l.ultimo.anterior = l.Raiz
+		l.Longitud++
 	} else {
 		node.anterior = l.ultimo
-		l.ultimo.siguiente = node
+		l.ultimo.Siguiente = node
 		l.ultimo = node
-		l.longitud++
+		l.Longitud++
 	}
 }
 
@@ -70,21 +70,21 @@ func (l *ListaDobleEnlazada) LeerCSV(ruta string) {
 }
 
 func (l *ListaDobleEnlazada) Reporte() {
-	nombreArchivo := "./listadoble.dot"
-	nombreImagen := "./listadoble.jpg"
+	NombreArchivo := "./listadoble.dot"
+	NombreImagen := "./listadoble.jpg"
 	texto := "digraph lista{\n"
 	texto += "rankdir=LR;\n"
 	texto += "node[shape = record];\n"
 	texto += "nodonull1[label=\"null\"];\n"
 	texto += "nodonull2[label=\"null\"];\n"
-	aux := l.raiz
+	aux := l.Raiz
 	contador := 0
 	texto += "nodonull1->nodo0 [dir=back];\n"
-	for i := 0; i < l.longitud; i++ {
-		texto += "nodo" + strconv.Itoa(i) + "[label=\"" + aux.nombre + "\"];\n"
-		aux = aux.siguiente
+	for i := 0; i < l.Longitud; i++ {
+		texto += "nodo" + strconv.Itoa(i) + "[label=\"" + aux.Nombre + "\"];\n"
+		aux = aux.Siguiente
 	}
-	for i := 0; i < l.longitud-1; i++ {
+	for i := 0; i < l.Longitud-1; i++ {
 		c := i + 1
 		texto += "nodo" + strconv.Itoa(i) + "->nodo" + strconv.Itoa(c) + ";\n"
 		texto += "nodo" + strconv.Itoa(c) + "->nodo" + strconv.Itoa(i) + ";\n"
@@ -92,7 +92,7 @@ func (l *ListaDobleEnlazada) Reporte() {
 	}
 	texto += "nodo" + strconv.Itoa(contador) + "->nodonull2;\n"
 	texto += "}"
-	crearArchivo(nombreArchivo)
-	escribirArchivo(texto, nombreArchivo)
-	ejecutar(nombreImagen, nombreArchivo)
+	crearArchivo(NombreArchivo)
+	escribirArchivo(texto, NombreArchivo)
+	ejecutar(NombreImagen, NombreArchivo)
 }
