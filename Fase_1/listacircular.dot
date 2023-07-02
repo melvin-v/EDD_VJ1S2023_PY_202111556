@@ -1,0 +1,38 @@
+digraph lista{
+rankdir=LR;
+node[shape = record];
+nodo0[label="{ID: Cristian Suy\nNombre: 4565|}"];
+nodo1[label="{ID: Karla Mejia\nNombre: 5578|}"];
+nodo2[label="{ID: Joel Guzman\nNombre: 4378|}"];
+nodo3[label="{ID: Karen Garcia\nNombre: 5261|}"];
+nodo4[label="{ID: Jaime Rosales\nNombre: 5231|}"];
+nodo5[label="{ID: Alejandra Perez\nNombre: 5324|}"];
+nodo6[label="{ID: Jose Mendez\nNombre: 4131|}"];
+nodo7[label="{ID: Gerardo Mendez\nNombre: 5175|}"];
+nodo8[label="{ID: Pedro Hernandez\nNombre: 4204|}"];
+nodo9[label="{ID: Maria Tux\nNombre: 5064|}"];
+nodo10[label="{ID: Teodoro Rodriguez\nNombre: 5313|}"];
+nodo11[label="{ID: Leonardo Xocoy\nNombre: 5030|}"];
+nodo12[label="{ID: Alberto Mejia\nNombre: 5407|}"];
+nodo13[label="{ID: Benito Perez\nNombre: 4983|}"];
+nodo14[label="{ID: Jose Requeda\nNombre: 5654|}"];
+nodo15[label="{ID: Jordi Urrutia\nNombre: 4825|}"];
+nodo16[label="{ID: Leopoldo Ruiz\nNombre: 4262|}"];
+nodo0->nodo1[dir=forward];
+nodo1->nodo2[dir=forward];
+nodo2->nodo3[dir=forward];
+nodo3->nodo4[dir=forward];
+nodo4->nodo5[dir=forward];
+nodo5->nodo6[dir=forward];
+nodo6->nodo7[dir=forward];
+nodo7->nodo8[dir=forward];
+nodo8->nodo9[dir=forward];
+nodo9->nodo10[dir=forward];
+nodo10->nodo11[dir=forward];
+nodo11->nodo12[dir=forward];
+nodo12->nodo13[dir=forward];
+nodo13->nodo14[dir=forward];
+nodo14->nodo15[dir=forward];
+nodo15->nodo16[dir=forward];
+nodo16->nodo0;
+}
